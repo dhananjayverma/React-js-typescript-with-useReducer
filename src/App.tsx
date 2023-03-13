@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useReducer,createContext } from 'react';
 import './App.css';
+// import Todo from './Components/Todo';
+import User from './Components/User';
+import { initialState ,reducer,actionType} from './reducer';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+type contextCity={
+  state:typeof initialState,
+  dispatch:React.Dispatch<actionType>
 }
 
+export const UserContext=createContext({}as contextCity)
+
+function App() {
+  const [state, dispatch] = useReducer(reducer,initialState)
+return (
+  <UserContext.Provider value={{state,dispatch}}>
+      <User/>
+
+</UserContext.Provider>
+  );
+}
 export default App;
+
+
+
+
